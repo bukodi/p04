@@ -14,7 +14,7 @@ import com.bukodi.p04.domain.enumeration.Planets;
  */
 @Entity
 @Table(name = "foo")
-public class Foo implements Serializable {
+public class Foo extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
