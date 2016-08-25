@@ -1,0 +1,45 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "optionalString",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "requiredString",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "zonedDateTime",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "logical",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "blobField",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        },
+        {
+            "fieldName": "imageBlob",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "enumField",
+            "fieldType": "Planets",
+            "fieldValues": "mercur,venus,earth,mars"
+        }
+    ],
+    "changelogDate": "20160825210520",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "foo",
+    "pagination": "pagination"
+}

@@ -1,0 +1,80 @@
+<div>
+    <h2>Foos</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="foo.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Foo
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="optionalString"><span>Optional String</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="requiredString"><span>Required String</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="zonedDateTime"><span>Zoned Date Time</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="logical"><span>Logical</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="blobField"><span>Blob Field</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="imageBlob"><span>Image Blob</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="enumField"><span>Enum Field</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="foo in vm.foos track by foo.id">
+                    <td><a ui-sref="foo-detail({id:foo.id})">{{foo.id}}</a></td>
+                    <td>{{foo.optionalString}}</td>
+                    <td>{{foo.requiredString}}</td>
+                    <td>{{foo.zonedDateTime | date:'medium'}}</td>
+                    <td>{{foo.logical}}</td>
+                    <td>
+                        <a ng-if="foo.blobField" ng-click="vm.openFile(foo.blobFieldContentType, foo.blobField)">open</a>
+                        <span ng-if="foo.blobField">{{foo.blobFieldContentType}}, {{vm.byteSize(foo.blobField)}}</span>
+                    </td>
+                    <td>
+                        <a ng-if="foo.imageBlob" ng-click="vm.openFile(foo.imageBlobContentType, foo.imageBlob)">
+                            <img data-ng-src="{{'data:' + foo.imageBlobContentType + ';base64,' + foo.imageBlob}}" style="max-height: 30px;"/>
+                        </a>
+                        <span ng-if="foo.imageBlob">{{foo.imageBlobContentType}}, {{vm.byteSize(foo.imageBlob)}}</span>
+                    </td>
+                    <td>{{foo.enumField}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="foo-detail({id:foo.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="foo.edit({id:foo.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="foo.delete({id:foo.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+    </div>
+</div>

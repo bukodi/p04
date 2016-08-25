@@ -1,0 +1,55 @@
+
+<div>
+    <h2><span>Foo</span> {{vm.foo.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Optional String</span></dt>
+        <dd>
+            <span>{{vm.foo.optionalString}}</span>
+        </dd>
+        <dt><span>Required String</span></dt>
+        <dd>
+            <span>{{vm.foo.requiredString}}</span>
+        </dd>
+        <dt><span>Zoned Date Time</span></dt>
+        <dd>
+            <span>{{vm.foo.zonedDateTime | date:'medium'}}</span>
+        </dd>
+        <dt><span>Logical</span></dt>
+        <dd>
+            <span>{{vm.foo.logical}}</span>
+        </dd>
+        <dt><span>Blob Field</span></dt>
+        <dd>
+            <div ng-if="vm.foo.blobField">
+                <a ng-click="vm.openFile(vm.foo.blobFieldContentType, vm.foo.blobField)">open</a>
+                {{vm.foo.blobFieldContentType}}, {{vm.byteSize(vm.foo.blobField)}}
+            </div>
+        </dd>
+        <dt><span>Image Blob</span></dt>
+        <dd>
+            <div ng-if="vm.foo.imageBlob">
+                <a ng-click="vm.openFile(vm.foo.imageBlobContentType, vm.foo.imageBlob)">
+                    <img data-ng-src="{{'data:' + vm.foo.imageBlobContentType + ';base64,' + vm.foo.imageBlob}}" style="max-width: 100%;"/>
+                </a>
+                {{vm.foo.imageBlobContentType}}, {{vm.byteSize(vm.foo.imageBlob)}}
+            </div>
+        </dd>
+        <dt><span>Enum Field</span></dt>
+        <dd>
+            <span>{{vm.foo.enumField}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="foo-detail.edit({id:vm.foo.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,113 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myFooLabel">Create or edit a Foo</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.foo.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.foo.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_optionalString">Optional String</label>
+            <input type="text" class="form-control" name="optionalString" id="field_optionalString"
+                    ng-model="vm.foo.optionalString"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_requiredString">Required String</label>
+            <input type="text" class="form-control" name="requiredString" id="field_requiredString"
+                    ng-model="vm.foo.requiredString"
+                    required />
+            <div ng-show="editForm.requiredString.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.requiredString.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_zonedDateTime">Zoned Date Time</label>
+                <div class="input-group">
+                    <input id="field_zonedDateTime" type="text" class="form-control" name="zonedDateTime" datetime-picker="{{dateformat}}" ng-model="vm.foo.zonedDateTime" is-open="vm.datePickerOpenStatus.zonedDateTime"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('zonedDateTime')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_logical">Logical</label>
+            <input type="checkbox" class="form-control" name="logical" id="field_logical"
+                    ng-model="vm.foo.logical"
+                     />
+        </div>
+        <div class="form-group" ngf-drop ngf-change="vm.setBlobField($file, vm.foo)">
+            <label class="control-label" for="field_blobField">Blob Field</label>
+            <div>
+                <div ng-if="vm.foo.blobField" class="help-block clearfix">
+                    <a class="pull-left" ng-click="vm.openFile(vm.foo.blobFieldContentType, vm.foo.blobField)">open</a><br>
+                    <span class="pull-left">{{vm.foo.blobFieldContentType}}, {{vm.byteSize(vm.foo.blobField)}}</span>
+                    <button ng-click="vm.foo.blobField=null;vm.foo.blobFieldContentType=null;"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="vm.setBlobField($file, vm.foo)">
+                    Add blob
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="blobField" id="field_blobField"
+                    ng-model="vm.foo.blobField"
+                     />
+            <input type="hidden" class="form-control" name="blobFieldContentType" id="field_blobFieldContentType"
+                    ng-model="vm.foo.blobFieldContentType" />
+        </div>
+        <div class="form-group" ngf-drop ngf-change="vm.setImageBlob($file, vm.foo)" ngf-pattern="'image/*'">
+            <label class="control-label" for="field_imageBlob">Image Blob</label>
+            <div>
+                <img data-ng-src="{{'data:' + vm.foo.imageBlobContentType + ';base64,' + vm.foo.imageBlob}}" style="max-height: 100px;" ng-if="vm.foo.imageBlob"/>
+                <div ng-if="vm.foo.imageBlob" class="help-block clearfix">
+                    <span class="pull-left">{{vm.foo.imageBlobContentType}}, {{vm.byteSize(vm.foo.imageBlob)}}</span>
+                    <button ng-click="vm.foo.imageBlob=null;vm.foo.imageBlobContentType=null;"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="vm.setImageBlob($file, vm.foo)" accept="image/*">
+                    Add image
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="imageBlob" id="field_imageBlob"
+                    ng-model="vm.foo.imageBlob"
+                     />
+            <input type="hidden" class="form-control" name="imageBlobContentType" id="field_imageBlobContentType"
+                    ng-model="vm.foo.imageBlobContentType" />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_enumField">Enum Field</label>
+            <select class="form-control" name="enumField" ng-model="vm.foo.enumField" id="field_enumField">
+                <option value="mercur">mercur</option>
+                <option value="venus">venus</option>
+                <option value="earth">earth</option>
+                <option value="mars">mars</option>
+            </select>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>
