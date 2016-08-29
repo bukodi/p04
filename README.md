@@ -1,3 +1,5 @@
+[![Build Status](https://api.travis-ci.org/bukodi/p04.svg)](https://api.travis-ci.org/bukodi/p04)
+
 # p04
 
 This application was generated using JHipster, you can find documentation and help at [https://jhipster.github.io](https://jhipster.github.io). Test
