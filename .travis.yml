@@ -24,6 +24,12 @@ script:
   - ./mvnw test
   - gulp test
   - ./mvnw package -Pprod -DskipTests
+deploy:
+  provider: releases
+  file: "/home/travis/build/bukodi/p04/target/p-04-0.0.1-SNAPSHOT.war"
+  skip_cleanup: true
+  on:
+    tags: true
 notifications:
   webhooks:
     on_success: change  # options: [always|never|change] default: always
